@@ -1,11 +1,11 @@
 <?php
-	
+
 	class general_class{
 
 		// Declare variables to connect to the database
 		public $host = "localhost";
 		public $user = "root";
-		public $pass = "000";
+		public $pass = "";
 		public $db_name = "database_name";
 		public $con;
 
@@ -28,7 +28,7 @@
 
 		function get_data(){
 
-			
+
 			$this->get_data_sql = mysqli_query($this->con,"SELECT * from questiones order by 1 desc");
 
 			// Display the results
@@ -52,7 +52,7 @@
 				// If there is nothing in the database
 				echo "<span style='color:green; font-size:14px; font-style:italic;'>There's no questiones yet</span>";
 			}
-			
+
 
 		}// function get_data
 
@@ -60,13 +60,13 @@
 
 		function insert_questione($q_input){
 
-			// get the questione 
+			// get the questione
 			$this->questione = $q_input;
 			$this->questione_random = rand(0,999999);
 
 			// Insert in the databse
 
-			
+
 			// Check if the random number exists
 			$this->sql_check_rand_number = mysqli_query($this->con,"SELECT * FROM questiones where questione='$q_input'");
 
@@ -75,14 +75,14 @@
 				// Proceed with the registration of the questione
 				if(mysqli_num_rows($this->sql_check_rand_number)>0){
 
-				//generate a random number 
+				//generate a random number
 				echo "This questione alredy exists";
 
 
 				}else{
 
 				// Continue with the questione post
-				
+
 				mysqli_query($this->con, "INSERT INTO questiones(questione,code) values('$q_input','$this->questione_random')");
 				echo "Your questione has been uploaded";
 
@@ -130,7 +130,7 @@
 		if(mysqli_num_rows($get_answers_sql)>0){
 
 			// if there is answers available
-			// get them all and display them 
+			// get them all and display them
 			while($answers = $get_answers_sql->fetch_assoc()){
 
 				// Display the answers
